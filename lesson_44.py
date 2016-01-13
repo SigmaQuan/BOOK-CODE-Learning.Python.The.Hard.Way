@@ -255,5 +255,32 @@ When to Use Inheritance or Composition
     appropriate in which situations? The answer is incredibly subjective,
     but I'll give you my guidelines for when to do which:
         1. Avoid multiple inheritance at all costs, as it's too complex to
-        be reliable. If you're stuck with it, then be prepared to know the 
+        be reliable. If you're stuck with it, then be prepared to know the
+        class hierarchy and spend time finding where everything is coming
+        from.
+        2. Use composition to package code into modules that are used in
+        many different unrelated places and situations.
+        3. Use inheritance only when there are clearly related pieces of
+        code that fit under a single common concept or if you have to
+        because of something your'r using.
+
+    Do not be a slave to these rules. The thing to remember about object-
+    oriented programming is that it is entirely a social convention
+    programmers have created to package and share code. Because it's a
+    social convention, but one that's codified in Python, you may be forced
+    to avoid these rules because of the people you work with. In that case,
+    find out how they use things and then just adapt to the situation.
+"""
+
+"""
+Study Drills
+    There is only one Study Drill for this exercise because it is a big
+    exercise. Go and read http://www.python.org/dev/peps/pep-0008/ and
+    start trying to use it in your code. You'll notice that some of it is
+    different from what you've been learning in this book, but now you
+    should be able to understand their recommendations and use them in your
+    own code. The rest of the code in this book may or may not follow these
+    guidelines depending on if it makes the code more confusing. I suggest
+    you also do this, as comprehension is more important than impressing
+    everyone with you knowledge of esoteric style rules.
 """
