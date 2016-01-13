@@ -60,3 +60,4 @@ print "%r", "\""
 print "%s", "\'"
 print "%r", "\'"
 
+# Test for Windows
