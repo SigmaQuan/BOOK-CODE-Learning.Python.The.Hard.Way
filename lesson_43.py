@@ -69,7 +69,7 @@ The Analysis of a Simple Game Engine
     my mind I can explore the idea and figure out how to make the game come
     to life.
 
-Write or Draw About the Problem
+1. Write or Draw About the Problem
     I'm going to write a little paragraph for the game:
 
     "Aliens have invaded a space ship and our hero has to go through a maze
@@ -103,7 +103,7 @@ Write or Draw About the Problem
     descriptions of each room, whatever comes to mind as I explore the
     problem.
 
-Extract Key Concepts and Research Them
+2. Extract Key Concepts and Research Them
     I now have enough information to extract some of the nouns and analyze
     their class hierarchy. First I make a list of all the nouns:
         Alien
@@ -131,7 +131,7 @@ Extract Key Concepts and Research Them
     research I might start over at step 1 based on new information I have
     and rewrite my description and extract new concepts.
 
-Create a Class Hierarchy and Object Map for the Concepts
+3. Create a Class Hierarchy and Object Map for the Concepts
     Once I have that I turn it into a class hierarchy by asking "What is
     similar to other things?" I also ask "What is basically just another
     word for another thing?"
@@ -179,7 +179,7 @@ Create a Class Hierarchy and Object Map for the Concepts
     Notice how I just put - enter under Scene since I know that all the
     scenes under it will inherit it and have to override it later.
 
-Code the Classes and a Test to Run Them
+4. Code the Classes and a Test to Run Them
     Once I have this tree of classes and some of the functions I open up a
     source file in my editor and try to write the code for it. Usually I'll
     just copy-paste the tree into the source file and then edit it into
@@ -239,7 +239,7 @@ a_game.play()
     you'll fill in the rest of this code and make it work to match the
     description of the game.
 
-Repeat and Refine
+5. Repeat and Refine
     The last step in my file process isn't so much a step as it is a
     while-loop. You don't ever do this as a one-pass operation. Instead you
     go back over the whole process again and refine it based on information
@@ -298,7 +298,6 @@ The Code for "Gothons from Plannet Percal #25
     I'm going to break this final file lesson_43.py down into sections and
     explain each one rather than dump all the code at once.
 """
-
 # This is just our basic imports for the game, nothing fancy really.
 from sys import exit
 from random import randint
@@ -325,6 +324,7 @@ class Engine(object):
         last_scene = self.scene_map.next_scene('finished')
 
         while current_scene != last_scene:
+            print "\n-----Now the current scene is: ", current_scene
             next_scene_name = current_scene.enter()
             current_scene = self.scene_map.next_scene(next_scene_name)
 
@@ -354,14 +354,14 @@ class CentralCorridor(Scene):
         print "your entire crew. You are the last surviving member and your last"
         print "mission is to get the neutron destruct bomb from the Weapons Armory, "
         print "put it in the bridge, and blow the ship up after getting into an "
-        print "escape pod."
-        print "\n\n"
+        print "escape pod.\n"
         print "You're running down the central corridor to the Weapons Armory when"
         print "a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume"
         print "flowing around his hate filled body. He's blocking the door to the"
-        print "Armory and about to pull a weapon to blast you."
+        print "Armory and about to pull a weapon to blast you.\n"
 
-        action = raw_input("shoot!\ndodge!\ntell a joke\n> ")
+        print "Please make choice: \nshoot!\ndodge!\ntell a joke"
+        action = raw_input("> ")
 
         if action == "shoot!":
             print "Quick on the draw you yank out your blaster and fire it at the Gothon."
@@ -384,7 +384,7 @@ class CentralCorridor(Scene):
             print "You tell the one Gothon joke you know:"
             print "Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr."
             print "The Gothon stops, tries not to laugh, then busts out laughing and can't move."
-            print "While he's laughing you run up and shoot him square in the head"
+            print "While he's laughing you run up and shoot him tsquare in the head"
             print "putting him down, then jump through the Weapon Armory door."
             return 'laser_weapon_armory'
         else:
@@ -407,11 +407,19 @@ class LaserWeaponArmory(Scene):
         print "and you need the code to get the bomb out. If you get the code"
         print "wrong 10 times then the lock closes forever and you can't"
         print "get the bomb. The code is 3 digits."
-        code = "%d%d%d" % (randint(1,9), randint(1,9), randint(1,9))
+        code = "%d%d%d" % (randint(1, 9), randint(1, 9), randint(1, 9))
+
         guess = raw_input("[keypad]> ")
         guesses = 0
 
-        while guess != code and guesses < 10:
+        while guess != code and guesses < 100:
+            if int(guess) > int(code):
+                print "Large, please try again!"
+            elif int(guess) < int(code):
+                print "Small, please try again!"
+            else:
+                print "Equals."
+                break
             print "BZZZZEDDD!"
             guesses += 1
             guess = raw_input("[keypad]> ")
@@ -420,7 +428,7 @@ class LaserWeaponArmory(Scene):
             print "The container clicks open and the seal breaks, letting gas out."
             print "You grab the neutron bomb and run as fast as you can to the"
             print "bridge where you must place it in the right spot."
-            return 'the bridge'
+            return 'the_bridge'
         else:
             print "The lock buzzes one last time and then you hear a sickening"
             print "melting sound as the mechanism is fused together."
@@ -438,6 +446,7 @@ class TheBridge(Scene):
         print "weapons out yet, as they see the active bomb under your"
         print "arm and don't want to set it off."
 
+        print "\nPlease make choice: \nthrow the bomb\nslowly place the bomb"
         action = raw_input("> ")
 
         if action == "throw the bomb":
@@ -473,7 +482,19 @@ class EscapePod(Scene):
         print "do you take?"
 
         good_pod = randint(1, 5)
-        guess = raw_input("[pod #]> ")
+        guess = raw_input("[pod #(1~5)]> ")
+        guesses = 0
+
+        while guess != good_pod and guesses < 3:
+            if int(guess) > int(good_pod):
+                print "Large, please try again!"
+            elif int(guess) < int(good_pod):
+                print "Small, please try again!"
+            else:
+                break
+            print "BZZZZEDDD!"
+            guesses += 1
+            guess = raw_input("[keypad]> ")
 
         if int(guess) != good_pod:
             print "You jump into pod %s and hit the eject button." % guess
@@ -528,5 +549,3 @@ class Map(object):
 a_map = Map('central_corridor')
 a_game = Engine(a_map)
 a_game.play()
-
-# I love python
