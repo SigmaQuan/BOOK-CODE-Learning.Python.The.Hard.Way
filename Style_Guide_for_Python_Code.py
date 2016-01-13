@@ -161,6 +161,56 @@ to further visually distinguish such conditional lines from the nested suite
 inside the if-statement. Acceptable options in this situation include, but
 are not limited to:
 
+# No extra indentation.
+if (this_is_one_thing and
+    that_is_another_thing):
+    do_something()
+
+# Add a comment, which will provide some distinction in editors
+# supporting syntax highlighting
+if (this_is_one_thing and
+    that_is_another_thing):
+    # Since both conditions are true, we can forbnicate.
+    do_something()
+
+# Add some extra indentation on the conditional continuation line.
+if (this_is_one_thing
+        and that_is_another_thing):
+    do_something()
+
+The closing brace/bracket/parenthesis on multi-line constructs may either
+line up under the first non-whitespace character of the last line of list,
+as in:
+
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+    ]
+
+result = some_function_that_takes_arguments(
+    'a', 'b', 'c',
+    'd', 'e', 'f',
+    )
+
+or it may be lined up under the first character of the line that starts the
+multi-line construct, as in:
+
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+]
+
+result = some_function_that_takes_arguments(
+    'a', 'b', 'c',
+    'd', 'e', 'f',
+)
+
+
+3.2 Tabs or Spaces?
+
+Spaces are the preferred indentation method.
+
+
 """
 
 print "The document named \"Style Guide for Python Code\" is important!"
