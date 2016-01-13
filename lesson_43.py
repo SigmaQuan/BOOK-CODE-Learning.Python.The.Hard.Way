@@ -549,3 +549,19 @@ class Map(object):
 a_map = Map('central_corridor')
 a_game = Engine(a_map)
 a_game.play()
+
+
+"""
+Study Drills
+    1. Change it! Maybe you hate this game. Could be to violent, you aren't
+    into sci-fi. Get the game working, then change it to what you like. This
+    is your computer, you make it do what you want.
+    2. I have a bug in this code. Why is the door lock guessing 11 times?
+    3. Explain how returning the next room works.
+    4. Add cheat codes to the game so you can get past the more difficult
+    rooms. I can do this with two words on one line.
+    5. Go back to my description and analysis, then try to build a small
+    combat system for the hero and the various Gothons he encounters.
+    6. This is actually a small version of something called a "finite state
+    machine". Read about them. They might not make sense but try anyway.
+"""
