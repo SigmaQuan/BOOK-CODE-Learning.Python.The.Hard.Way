@@ -913,6 +913,16 @@ Even with __all__ set appropriately, internal interfaces (packages,
 modules, classes, functions, attributes or other names) should still
 be prefixed with a single leading underscore.
 
+An interface is also considered internal if any containing namespace (
+package, modules or class) is considered internal.
+
+Imported names should always be considered an implementation detail.
+Other modules mush not rely on indirect access to such imported names
+unless they are an explicitly documented part of the containing
+module's API, such as os. path or a package's __init__ modules that
+exposes functionality from submodules.
+
+
 9. Programming Recommendations
 
 9.1 Function Annotations
