@@ -1015,3 +1015,5 @@ Source: https://hg.python.org/peps/file/tip/pep-0008.txt
 """
 
 print "The document named \"Style Guide for Python Code\" is important!"
+
+print "The document is so longer that I cost three days to type it."
