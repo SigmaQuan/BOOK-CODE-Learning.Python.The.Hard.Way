@@ -925,6 +925,12 @@ exposes functionality from submodules.
 
 9. Programming Recommendations
 
+* Code should be written in a way that does not disadvantage other
+implementations of Python (PyPy, Jython, IronPython, Cython, Psyco, and
+such).
+
+
+
 9.1 Function Annotations
 
 With the acceptance of PEP 484, the style rules for function
