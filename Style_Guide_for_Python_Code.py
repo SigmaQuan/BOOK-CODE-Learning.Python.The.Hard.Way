@@ -1002,7 +1002,7 @@ original traceback.
   When deliberately replacing an inner exception (using "raise X" in
   Python 2 or "raise X from None" in Python 3.3+), ensure that
   relevant details are transferred to the new exception (such as
-  preserving the attribut name when converting KeyError to
+  preserving the attribute name when converting KeyError to
   AttributeError, or embedding the next of the original exception in
   the new exception message).
 
@@ -1077,7 +1077,88 @@ try/finally statement is also acceptable.
 methods whenever they do something other than acquire and release
 resources. For example:
   Yes:
-  
+   with conn.begin_transaction():
+       do_stuff_in_transaction(conn)
+  No:
+   with conn:
+       do_stuff_in_transaction(conn)
+  The latter example doesn't provide any information to indicate that
+  the __enter__ and __exit__ methods are doing something other than
+  closing the connection after a transaction. Being explicit is
+  important in this case.
+
+* Be consistent in return statements. Either all return statements in
+a function should return an expression, or none of them should. If any
+return statement returns an expression, any return statements where no
+value is returned should explicitly state this as return None, and an
+explicit return statement should be present at the end of the
+function (if reachable).
+  Yes:
+   def foo(x):
+       if x >= 0:
+           return math.sqrt(x)
+       else:
+           return None
+
+   def bar(x):
+       if x < 0:
+           return None
+       return math.sqrt(x)
+
+   No:
+    def foo(x):
+        if x >= 0:
+            return math.sqrt(x)
+
+    def bar(x):
+        if x < 0:
+            return
+        return math.sqrt(x)
+
+* Use string method instead of the string module.
+
+  String methods are always much faster and share the same API with
+  unicode strings. Override this rule if backward compatibility with
+  Pythons older than 2.0 is required.
+
+* Use ''.startswith() and ''.endswith() instead of string slicing to
+check for prefixes or suffixes.
+
+  startswith() and endswith() are cleaner and less error prone. For
+  example:
+   Yes: if foo.startswith('bar'):
+   No:  if foo[:3] == 'bar':
+
+* Object type comparisons should always use isinstance() instead of comparing types directly.
+
+  Yes: if isinstance(obj, int):
+  No:  if type(obj) is type(x):
+
+  When checking if an object is a string, keep in mind that it might
+  be a unicode string too! In python 2, str and unicode have a common
+  base class, basestring, so you can do:
+
+   if isinstance(obj, basestring):
+
+  Not that in Python 3, unicode and basestring no longer exist (there
+  is only str) and a bytes object is no longer a kind of string (it is
+  a sequence of integers instead)
+
+* For sequences, (strings, list, tuples), use the fact that empty
+sequences are false.
+  Yes: if not seq:
+       if seq:
+  No:  if len(seq)
+       if not len(seq)
+
+* Don't write string literals that rely on significant trailing
+whitespace. Such trailing whitespace is visually indistinguishable
+and some editors (or more recently, reindent.py) will trim them.
+
+* Don't compare boolean values to True or False using ==.
+  Yes:   if greeting:
+  No:    if greeting == True:
+  Worse: if greeting is True:
 
 
 9.1 Function Annotations
