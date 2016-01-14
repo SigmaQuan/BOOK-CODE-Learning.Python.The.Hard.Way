@@ -107,7 +107,3 @@ for item in recordset:
 document.add_page_break()
 
 document.save('demo.docx')
-
-
-
-
