@@ -927,14 +927,85 @@ exposes functionality from submodules.
 
 9.1 Function Annotations
 
+With the acceptance of PEP 484, the style rules for function
+annotations are changing.
+
+* In order to be forward compatible, function annotations in Python 3
+code should preferably use PEP 484 syntax. (There are some formatting
+recommendations for annotations in the previous section.)
+
+* The experimentation with annotation styles that was recommended
+previously in this PEP is no longer encouraged.
+
+* However, outside the stdlib, experiments within the rules of PEP 484
+are now encouraged. For example, marking up a large third party library
+or application with PEP 484 style type annotations, reviewing how easy
+it was to add those annotations, and observing whether their presence
+increase code understandability.
+
+* The Python standard library should be conservative in adopting such
+annotations, but their use it allowed for new code and for big
+refactorings.
+
+* For code that wants to make a different use of function annotations
+it is recommended to put a comment of the form:
+  # type: ignore
+ near the top of the file; this tells type checker to ignore all
+ annotations. (More fine-grained ways of disabling complains from type
+ checkers can be found in PEP 484)
+
+* Like linters, type checker are optional, separate tools. Python
+interpreters by default should not issue any messages dur to type
+checking and should not alter their behavior based on annotations.
+
+* Users who don't want to use type checkers are free to ignore them.
+However, it is expected that users of third party library packages
+may want to run type checker over those packages. For this purpose
+PEP 484 recommends the use of stub files: .pyi files that are read by
+the type checker in preference of the corresponding .py files. Stub
+files can be distributed with a library, or separately (with the
+library author's permission) through the typeshed repo [5].
+
+* For code that needs to be backwards compatible, function annotations
+can be added in the form of comments. Basically, this Python 3
+annotation.
+  def embezzle(self, account: str, funds: int = 1000000,
+  **fake_receipts: str) -> None:
+      \"""Embezzle funds from account using fake receipts.\"""
+      <code goes here>
+  is equivalent to the following:
+  def embezzle(self, account, funds=1000000, **fake_receipts):
+      # type: (str, int, **str) -> None
+      \"""Embezzle funds from account using fake receipts.\"""
+      <code goes here>
+  The mypy type checker [6] currently supports this syntax, and other
+  type checkers are encouraged to adopt it.
+
+ Footnotes [7]
+
+ Hanging indentation is a type-setting style where all the lines in a
+ paragraph are indented except the first line. In the context of
+ Python, the term is used to describe a style where the opening
+ parenthesis of a parenthesized statement is the last non-whitespace
+ character of the line, with subsequent lines being indented until
+ the closing parenthesis.
+
 
 References
+
+[1] PEP 7 , Style Guide for C Code, van Rossum
+[2] Barry's GNU Mailman style guide http://barry.warsaw.us/software/STYLEGUIDE.txt
+[3] http://www.wikipedia.com/wiki/CamelCase
+[4] PEP 8 modernisation, July 2013 http://bugs.python.org/issue18472
+[5] Typeshed repo https://github.com/python/typeshed
+[6] mypy type checker http://mypy-lang.org https://github.com/JukkaL/mypy
 
 
 Copyright
 
+This document has been placed in the public domain.
 
-
+Source: https://hg.python.org/peps/file/tip/pep-0008.txt
 """
 
 print "The document named \"Style Guide for Python Code\" is important!"
