@@ -175,6 +175,19 @@ start a new project, just do this:
     6. Start coding.
 
 
+Required Quiz
 
-
+This exercise doesn't have Study Drills but a quiz you should complete:
+    1. Read about how to use all of the things you installed.
+    2. Read about the setup.py file and all it has to offer. Warning:
+        it is not a very well-written piece of software, so it will be
+        very strange to use.
+    3. Make a project and start putting code into the module, then get
+    the module working.
+    4. Put a script in the bin directory that you can run. Read about
+    how you can make a Python script that's runnable for your system.
+    5. Mention the bin script you created in your setup.py so that it
+    gets installed.
+    6. Use your setup.py to install your own module and make sure it
+    works, then use pip to uninstall it.
 """
