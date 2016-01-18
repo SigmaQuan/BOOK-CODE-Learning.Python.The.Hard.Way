@@ -17,3 +17,30 @@ def peek(word_list):
     else:
         return None
 
+
+def match(word_list, expecting):
+    if word_list:
+        word = word_list.pop[0]
+
+        if word[0] == expecting:
+            return word
+        else:
+            return None
+    else:
+        return None
+
+
+def skip(word_list, word_type):
+    while peek(word_list) == word_type:
+        match(word_list, word_type)
+
+
+def parse_verb(word_list):
+    skip(word_list, 'stop')
+
+    if peek(word_list) == 'verb':
+        return match(word_list, 'verb')
+    else:
+        raise ParserError("Excepted a verb next.")
+
+

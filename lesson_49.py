@@ -112,10 +112,59 @@ kind of sentence we're dealing with based on what the next word is,
 and then we can call another function to consume that word and carry
 on.
 
-To
+To consume a word we use a the match function, which confirms that the
+expected word is the right type, takes it off the list, and returns the
+word.
 
+# def match(word_list, expecting):
+#     if word_list:
+#         word = word_list.pop[0]
+#
+#         if word[0] == expecting:
+#             return word
+#         else:
+#             return None
+#     else:
+#         return None
+#
 
+Again, fairly simple but make sure you understand this code but also
+why I'm doing it this way. I need to peek at words in the list to
+decide what kind of sentence I'm dealing with, and then I need to
+match those words to create my Sentence.
 
+The last thing I need is a way to skip words that aren't useful to the
+Sentence. These are the words labeled "stop words" (type 'stop') that
+are words like "the", "and", and "a".
+
+#
+# def skip(word_list, word_type):
+#     while peek(word_list) == word_type:
+#         match(word_list, word_type)
+#
+
+Remember that skip doesn't skip one word, it skips as many words of that
+type as it finds. This makes it so if someone types, "scream at the bear"
+you get "scream" and "bear".
+
+That's our basic set of parsing functions, and with that we can actually
+parse just about any text we want. Our parser is very simple though, so
+the remaining functions are short.
+
+First we can handle parsing a verb:
+#
+# def parse_verb(word_list):
+#     skip(word_list, 'stop')
+#
+#     if peek(word_list) == 'verb':
+#         return match(word_list, 'verb')
+#     else:
+#         raise ParserError("Excepted a verb next.")
+
+We skip any stop words, then peek ahead to make sure the next word is a
+"verb" type. If it's not then raise the ParserError to say why. If it
+is a "verb" then match it, which takes it off the list. A similar
+function handles sentence objects:
 
 
 
