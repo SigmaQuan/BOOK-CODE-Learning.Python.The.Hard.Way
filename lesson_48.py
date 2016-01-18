@@ -174,23 +174,90 @@ What You Should Test
 
 Here is the test case tests/lexicon_tests.py that you should use, but
 don't type this in yet:
+#
+# from nose.tools import *
+# from ex48 import lexicon
+#
+#
+# def test_directions():
+#     assert_equal(lexicon.scan("north"), [('direction', 'north')])
+#     result = lexicon.scan("north south east")
+#     assert_equal(result, [('direction', 'north'),
+#                           ('direction', 'south'),
+#                           ('direction', 'east')])
+#
+# def test_verbs():
+#     assert_equal(lexicon.scan("go"), [('verb', 'go')])
+#     result = lexicon.scan("go kill eat")
+#     assert_equal(result, [('verb', 'go'),
+#                           ('verb', 'kill'),
+#                           ('verb', 'eat')])
+#
+#
+# def test_stops():
+#     assert_equal(lexicon.scan("the"), [('stop', 'the')])
+#     result = lexicon.scan("the in of")
+#     assert_equal(result, [('stop', 'the'),
+#                           ('stop', 'in'),
+#                           ('stop', 'of')])
+#
+#
+# def test_nouns():
+#     assert_equal(lexicon.scan("bear"), [('noun', 'bear')])
+#     result = lexicon.scan("bear princess")
+#     assert_equal(result, [('noun', 'bear'),
+#                           ('noun', 'princess')])
+#
+# def test_numbers():
+#     assert_equal(lexicon.scan("1234"), [('number', 1234)])
+#     result = lexicon.scan("3 91234")
+#     assert_equal(result, [('number', 3),
+#                           ('number', 91234)])
+#
+#
+# def test_errors():
+#     assert_equal(lexicon.scan("ASDFADFASDF"), [('error', 'ASDFADFASDF')])
+#     result = lexicon.scan("bear IAS princess")
+#     assert_equal(result, [('noun', 'bear'),
+#                           ('error', 'IAS'),
+#                           ('noun', 'princess')])
 
-from nose.tools import *
-from ex48 import lexicon
+You will want to create a new project using the project skeleton just
+like you did in Lesson 47. Then you'll need to create this test case
+and the lexicon.py file it will use. Loot at the top of the test case
+to see how it's being imported to figure out where it goes.
 
-def test__
+Next, follow the procedure I gave you and write a little bit of the
+test case at a time. For example, here's how I'd do it:
+    1. Write the import at the top. Get that to work.
+    2. Create an empty version of the first test case test_directions.
+    Make sure that runs.
+    3. Write the first line of the test_directions test case. Make it
+    fail.
+    4. Go to the lexicon.py file, create an empty scan function.
+    5. Run the test, make sure scan is at least running, even though
+    it fails.
+    6. Fill in psudeo code comments for how scan should work to make
+    test_directions pass.
+    7. Write the code that matches the comments until test_directions
+    passes.
+    8. Go back to test_directions and write the rest of the lines.
+    9. Back to scan in lexicon.py and work on it to make this new test
+    code pass.
+    10. Once you've done that you have your first passing test, and you
+    move on to the next test.
+
+As log as you keep following this procedure one little chunk at a time
+you can successfully turn a large problem into smaller solvable
+problems. It's like climbing a mountain by turning it into a bunch of
+little hills.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+Study Drills
+    1. Improve the unit test to make sure you test more of the lexicon.
+    2. Add to the lexicon and then update the unit test.
+    3. Make sure your scanner handles user input in any capitalization
+    and case. Update the test to make sure this actually works.
+    4. Find another way to convert the number.
+    5. My solution wa 37 line long. Is yours longer? Shorter?
 """
