@@ -165,8 +165,71 @@ We skip any stop words, then peek ahead to make sure the next word is a
 "verb" type. If it's not then raise the ParserError to say why. If it
 is a "verb" then match it, which takes it off the list. A similar
 function handles sentence objects:
+#
+# def parse_object(word_list):
+#     skip(word_list, 'stop')
+#     next_word = peek(word_list)
+#
+#     if next_word == 'noun':
+#         return match(word_list, 'noun')
+#     elif next_word == 'direction':
+#         return match(word_list, 'direction')
+#     else:
+#         raise ParserError("Expected a noun or direction")
+
+Again, skip the stop words, peek ahead, and decide if the sentence is
+correct based on what's there. In the parse_object function thought we
+need to handle both "noun" and "direction" words as possible objects.
+Subject are then similar again, but since we want to handle the implied
+"player" noun, we have to use peek:
+
+# def parse_subject(word_list):
+#     skip(word_list, 'stop')
+#     next_word = peek(word_list)
+#
+#     if next_word == 'noun':
+#         return match(word_list, 'noun')
+#     elif next_word == 'verb':
+#         return ('noun', 'player')
+#     else:
+#         raise ParserError("Expected a verb next.")
+
+With that all out of the way and ready, our final parse_sentence
+function is very simple:
+#
+# def parse_sentence(word_list):
+#     subj = parse_subject(word_list)
+#     verb = parse_verb(word_list)
+#     obj = parse_object(word_list)
+#
+#     return Sentence(subj, verb, obj)
 
 
+What You Should Test
 
+For exercise, write a complete test that confirms everything in this
+code is working. Put the test in tests/parser_tests.py similar to the
+test file from the last exercise. That includes making exceptions
+happen by giving the parser bad sentences.
+
+Check for an exception by using the function assert_raises from the
+nose documentation. Learn how to use this so you can write a test
+that is expected to fail, which is very important in testing. Learn
+about this function (and others) by reading the nose documentation.
+
+When you are done, you should know how this bit of code works and how
+to write a test for other people's code even if they do not want you
+to. Trust me, it's a very handy skill to have.
+
+
+Study Drills
+    1. Change the parse_ methods and try to put them into a class
+    rather than be just methods. Which design do you like better?
+    2. Make the parser more error-resistant so that you can avoid
+    annoying your users if they type words your lexicon doesn't
+    understand.
+    3. Improve the grammar by handling more things like numbers.
+    4. Think about how you might use this Sentences class in your game
+    to do more fun things with a user's input.
 
 """

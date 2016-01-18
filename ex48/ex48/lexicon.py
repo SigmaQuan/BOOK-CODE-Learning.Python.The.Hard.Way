@@ -1,4 +1,4 @@
-#
+
 direction = {
     'north': '',
     'south': '',
