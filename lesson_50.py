@@ -86,7 +86,21 @@ However, if you did this:
     $ cd bin/ # WRONG! WRONG! WRONG!
     $ python app.py  # WRONG! WRONG! WRONG!
 
-Then you are doing it wrong. In all python projects you do not cd into a lower directory to run things. You stay at the top and cun everything from there so that all of the system can access all the modules and files. Go reread Exercise 46 to understand a project layout and how to use it if you did this. Finally, use your web brower and go to
+Then you are doing it wrong. In all python projects you do not cd into
+a lower directory to run things. You stay at the top and cun
+everything from there so that all of the system can access all the
+modules and files. Go reread Exercise 46 to understand a project
+layout and how to use it if you did this. Finally, use your web brower
+and go to http://localhost:8080/ and you should see two things. First,
+in your browser you'll see Hello, world!. Second, you'll see your
+Terminal new output like this:
+    $ python bin/app.py
+      http://0.0.0.0:8080/
+      127.0.0.1:17628 - - [20/Jan/2016 17:25:56] "HTTP/1.1 GET /" - 200 OK
+
+Those are log messages that lpthw.web prints out so you can see that
+the server is working, and what the browser is doing behind the scenes.
+The log
 
 
 

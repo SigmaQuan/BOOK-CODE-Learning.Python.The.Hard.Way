@@ -13,7 +13,7 @@ greetings = "Hello World"
 
 class index(object):
     def GET(self):
-        return greeting
+        return greetings
         # return render.index(greeting=greetings)
 
 
