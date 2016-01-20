@@ -22,8 +22,49 @@ own projects.
 In our case, we'll be using the lpthw.web framework, but there are
 many, many, many others you can choose from. For now, learn lpthw.web,
 then branch out to another one when you're ready (or just keep using
-lpthw.web since it's good enough).
+lpthw.web since it's good enough). Using pip, install lpthw.web:
+    $ sudo pip install lpthw.web
 
-Using pip, install lpthw.web:
+This will work on linux and Mac OSX computers, but on Windows just drop
+the sudo part of the pip install command and it should work. If not, go
+back to Exercise 46 and make sure you can do it reliably.
+
+[WARNING]
+    Other python programmers will warn you that lpthw.web is just a
+    fork of another web framework called web.py and that web.py has
+    too much "magic". If they say this, point out to them that
+    Google App Engine originally used web.py and not a single python
+    programmer complained that it hard too much magic, because they
+    all worked at Google. If it's good enough for Google, then it's
+    good enough for you to get started. Then, just get back to learning
+    to code and ignore their goal of indoctrination over education.
+
+
+Make a Simple "Hello World" Project
+
+Now you're going to make an initial very simple "Hello World" web
+application and project directory using lpthw.web. First, make your
+project directory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
