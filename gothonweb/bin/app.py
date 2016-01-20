@@ -1,18 +1,20 @@
 import web
 
 urls = (
-    '/', 'Index'
+    '/', 'index'
 )
 
 app = web.application(urls, globals())
 
 render = web.template.render('templates/')
 
+greetings = "Hello World"
 
-class Index(object):
+
+class index(object):
     def GET(self):
-        greeting = "Hello World"
-        return render.index(greeting=greeting)
+        return greeting
+        # return render.index(greeting=greetings)
 
 
 if __name__ == "__main__":

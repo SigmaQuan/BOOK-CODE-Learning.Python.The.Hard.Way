@@ -45,11 +45,48 @@ Make a Simple "Hello World" Project
 Now you're going to make an initial very simple "Hello World" web
 application and project directory using lpthw.web. First, make your
 project directory.
+    $ cd projects
+    $ mkdir gothonweb
+    $ cd toghonweb
+    $ mkdir bin gothonweb tests docs templates
+    $ touch gothonweb/__init__.py
+    $ touch tests/__init__.py
 
+You'll be taking the game from Exercise 43 and making it into a web
+application, so that's why you're calling it gothonweb. Before you
+do that, we need to create the most basic lpthw.web application
+possible. Put the following into bin/app.py:
+#
+# import web
+#
+# urls = (
+#     '/', 'index'
+# )
+#
+# app = web.application(urls, globals())
+#
+# render = web.template.render('templates/')
+#
+#
+# class index(object):
+#     def GET(self):
+#         greeting = "Hello World"
+#         return greeting
+#
+#
+# if __name__ == "__main__":
+#     app.run()
+#
 
+Then run the application like this:
+    $ python bin/app.py
+    http://0.0.0.0:8080/
 
+However, if you did this:
+    $ cd bin/ # WRONG! WRONG! WRONG!
+    $ python app.py  # WRONG! WRONG! WRONG!
 
-
+Then you are doing it wrong. In all python projects you do not cd into a lower directory to run things. You stay at the top and cun everything from there so that all of the system can access all the modules and files. Go reread Exercise 46 to understand a project layout and how to use it if you did this. Finally, use your web brower and go to
 
 
 
