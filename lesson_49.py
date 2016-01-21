@@ -4,15 +4,15 @@ Exercise 49: Making Sentences
 What we should be able to get from our little game lexicon scanner is a
 list that looks like this:
 
->>> from ex48 import lexicon
->>> lexicon.scan("go north")
-[('verb', 'go'), ('direction', 'north')]
->>> lexicon.scan("kill the princess")
-[('verb', 'kill'), ('stop', 'the'), ('noun', 'princess')]
->>> lexicon.scan("eat the bear")
-[('verb', 'eat'), ('stop', 'the'), ('noun', 'bear')]
->>> lexicon.scan("open the door and smack the bear in the nose")
-[('error', 'open'), ('stop', 'the'), ('error', 'door'), ('error', 'and'), ('error', 'smack'), ('stop', 'the'), ('noun', 'bear'), ('stop', 'in'), ('stop', 'the'), ('error', 'nose')]
+# >>> from ex48 import lexicon
+# >>> lexicon.scan("go north")
+# [('verb', 'go'), ('direction', 'north')]
+# >>> lexicon.scan("kill the princess")
+# [('verb', 'kill'), ('stop', 'the'), ('noun', 'princess')]
+# >>> lexicon.scan("eat the bear")
+# [('verb', 'eat'), ('stop', 'the'), ('noun', 'bear')]
+# >>> lexicon.scan("open the door and smack the bear in the nose")
+# [('error', 'open'), ('stop', 'the'), ('error', 'door'), ('error', 'and'), ('error', 'smack'), ('stop', 'the'), ('noun', 'bear'), ('stop', 'in'), ('stop', 'the'), ('error', 'nose')]
 
 Now let us turn this into something the game can work with, which would
 be some kind of Sentence class.

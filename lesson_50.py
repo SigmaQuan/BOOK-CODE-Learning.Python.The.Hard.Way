@@ -100,7 +100,20 @@ Terminal new output like this:
 
 Those are log messages that lpthw.web prints out so you can see that
 the server is working, and what the browser is doing behind the scenes.
-The log
+The log messages help you debug and figure out when you have problems.
+For example, it's saying that your browser tried to get /favicon.ico
+but that file didn't exist so it returned 404 Not Found status code.
+
+I haven't explained the way any of this web stuff works yet, because I
+want to get you setup and ready to roll so that I can explain it better
+in the next two exercises. To accomplish this, I'll have you break your
+lpthw.web application in various ways and then restructure it so that
+you know how it's setup.
+
+
+What's Going On?
+
+
 
 
 
