@@ -8,9 +8,15 @@ class index(object):
         greeting = "Hello Quan"
         return render.index(greeting=greeting)
 
+
+class foo(object):
+    def GET(self):
+        name = "Chen Rui"
+        return render.foo(name=name)
+
 if __name__ == "__main__":
     urls = (
-        '/', 'index'
+        '/', 'foo'
     )
     app = web.application(urls, globals())
     app.run()

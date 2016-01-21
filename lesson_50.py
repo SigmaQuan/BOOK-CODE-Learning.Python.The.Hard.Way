@@ -160,9 +160,95 @@ following with this page:
 
 Create Basic Templates
 
+You can break your lpthw.web application, but did you notice that
+"Hello World" isn't a very good HTML page? This is a web application,
+and as such it needs a proper HTML response. To do that you will
+create a simple template that says "Hello World" in a big green font.
 
+The first step is to create a templates/index.html file that looks
+like this:
+#
+# $def with (greeting)
+#
+# <html>
+#     <head>
+#         <title>Gothons Of Planet Percal #25</title>
+#     </head>
+# <body>
+#
+# $if greeting:
+#     I just wanted to say <em style="color: green; font-size: 2em;">$greeting</em>.
+# $else:
+#     <em>Hello</em>, world!
+#
+# </body>
+# </html>
 
+If you know what HTML is, then this should look fairly familiar. If
+not, research HTML and try writing a few web pages by hand so you know
+how it works. This HTML file, however, is a template, which means that
+lpthw.web will fill in "holes" in the text depending on variables you
+pass in to the template. Every place you see $greeting will be a
+variable you'll pass to the template that alters its contents.
 
+To make your bin/app.py do this, you need to add some code to tell
+lpthw.web where to load the template and to render it. Take that file
+and change it like this:
+#
+# import web
+#
+# # render = web.template.render('templates/')  # this does not work
+# render = web.template.render('/home/quan/Documents/Code/BOOK-CODE-Learning.Python.The.Hard.Way/gothonweb/templates/')  # this does work
+#
+#
+# class index(object):
+#     def GET(self):
+#         greeting = "Hello Quan"
+#         return render.index(greeting=greeting)
+#
+# if __name__ == "__main__":
+#     urls = (
+#         '/', 'index'
+#     )
+#     app = web.application(urls, globals())
+#     app.run()
+
+Pay close attention to the new render variable and how I changed the
+last line of index.GET so it returns render.index() passing in your
+greeting variable.
+
+Once you have that in place, reload the web page in your browser and
+you should see a different message in green. You should also be able
+to do a View Source on the page in your browser to see that it valid
+HTML.
+
+This may have flown by you very fast, so let me explain how a template
+works:
+    1. In your bin/app.py you've added a new variable, render, which is
+    a web.template.render object.
+    2. This render object knows how to load .html files out of the
+    templates/ directory because you passed that to it as a parameter.
+    3. Later in your code, when the browser hits the index.GET like
+    before, instead of just returning the string greeting, you call
+    render.index and pass the greeting to it as a variable.
+    4. This render.index method is kind of a magic function where the
+    render object sees that you're asking for index, goes into the
+    templates/ directory, looks for a page named index.html, and then
+    "renders" it, or converts it.
+    5. In the templates/index.html file you see the beginning
+    definition that says this template takes a greeting parameter, just
+    like a function. Also, just like Python this template is
+    indentation sensitive, so make sure you get them right.
+    6. Finally, you have the HTML in templates/index.html that looks at
+    the greeting variable and, if it's there, prints one message using
+    the $greeting, or a default message.
+
+To get deeper into this, change the greeting variable and the HTML to
+see what effect it has. Also create another template named
+templates/foo.html and render that using render.foo() instead of
+render.index() like before. This will show you how the name of the
+function you call on render is just matched to an .html file in
+templates/ .
 
 
 
