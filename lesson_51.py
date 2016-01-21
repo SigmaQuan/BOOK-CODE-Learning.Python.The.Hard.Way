@@ -70,7 +70,23 @@ application:
         Once a browser knows what protocol you want to use (http), what
         server you want to talk to (http://test.com//), and what
         resource on that server to get, it must make a connection. The
-        
+        browser simply asks your operating system (OS) to open a "port"
+        to the computer, usually port 80. When it works the OS hands
+        back to your program something that works like a file, but is
+        actually sending and receiving bytes over the network wires
+        between your computer and the other computer at
+        http://test.com//. This is also the same thing that happens
+        with http://localhost:8080/ but in this case you're telling
+        the browser to connect to your own computer (localhost) and
+        use port 8080 rather than the default of 80. You could also do
+        http://test.com:80/ and get the same result, except you're
+        explicitly saying to use port 80 instead of letting it be that
+        by default.
+    Request
+        Your browser is connected using the address you gave. Now it
+        needs to ask for the resource it wants (or you want) on the
+        remotes server. If you gave /book/ at the end of the URL, then
+        you want the file ()
 
 
 """
