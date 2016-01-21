@@ -113,9 +113,52 @@ you know how it's setup.
 
 What's Going On?
 
+Here's what's happening when your browser hits your application:
+    1. Your browser makes a network connection to your own computer,
+    which called localhost and is a standard way of saying "whatever
+    my own computer is called on the network". It also uses port 8080.
+    2. Once it connects, it makes an HTTP request to the bin/app.py
+    application and asks for the / URL, which is commonly the first
+    URL on any website.
+    3. Inside bin/app.py you've got a list of URLs and what classes
+    they match. Then only one we have is the '/', 'index' mapping.
+    This means that whenever someone goes to / with a browser,
+    lpthw.web will find the class index and load it to handle the
+    request.
+    4. Now that lpthw.web has found class index it calls the index.GET
+    method on an instance of that class to actually handle the request.
+    This function runs and simply returns a string for what lpthw.web
+    should send to the browser.
+    5. Finally, lpthw.web has handled the request and sends this
+    response to the browser, which is what you are seeing.
+
+Make sure you really understand this. Draw up a diagram of how this
+information flows from your browser, to lpthw.web, then to index.GET
+and back to your browser.
 
 
+Fixing Errors
 
+First, delete line 11 where you assign the greeting variable, then hit
+refresh in your browser. You should see an error page now that gives
+you lots of information on how your application just exploded. You
+know that the variable greeting is now missing, but lpthw.web gives
+you this nice error page to track down exactly where. Do each of the
+following with this page:
+    1. Look at each of the local vars outputs (click on them) and see
+    if you follow what variables it's talking about and where they are.
+    2. Look at the Request Information section and see if it matches
+    anything you're already familiar with. This is information that
+    your web browser is sennding to your gothonweb application. You
+    normally don't even know that it's sending this stuff, so now you
+    get to see what it does.
+    3. Try breaking this simple application in other ways and explore
+    what happens. Don't forget to also look at the logs being printed
+    into your Terminal as lpthw.web will put other stack traces and
+    information there too.
+
+
+Create Basic Templates
 
 
 

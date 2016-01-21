@@ -1,21 +1,16 @@
 import web
 
-urls = (
-    '/', 'index'
-)
-
-app = web.application(urls, globals())
-
-render = web.template.render('templates/')
-
-greetings = "Hello World"
+render = web.template.render('/home/quan/Documents/Code/BOOK-CODE-Learning.Python.The.Hard.Way/gothonweb/templates/')
 
 
 class index(object):
     def GET(self):
-        return greetings
-        # return render.index(greeting=greetings)
-
+        greeting = "Hello Quan"
+        return render.index(greeting=greeting)
 
 if __name__ == "__main__":
+    urls = (
+        '/', 'index'
+    )
+    app = web.application(urls, globals())
     app.run()
