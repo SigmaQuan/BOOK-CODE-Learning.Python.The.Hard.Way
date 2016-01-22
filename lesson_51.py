@@ -222,42 +222,165 @@ file you need to creat, in templates/hello_form.html:
 #
 
 You should then change bin/app.py to look like this:
+#
+# import web
+#
+# urls =(
+#     '/hello', 'index'
+# )
+#
+# app = web.application(urls, globals())
+#
+# render = web.template.render('templates/')
+#
+# class index(object):
+#     def GET(self):
+#         return render.hello_form()
+#
+#     def POST(self):
+#         form = web.input(name="Nobody", greet="Hello")
+#         greeting = "%s, %s" % (form.greet, form.name)
+#         return render.index(greeting=greeting)
+#
+# if __name__=="__main__"
+#     app.run()
+#
 
-import web
+Once you've got those written up, simply restart the web application
+again and hit it with your browser like before.
 
-urls =(
-    '/hello', 'index'
-)
+This time you'll get a form asking you for "A Greeting" and "Your
+name". When you hit the Submit button on the form, it will give you
+the same greeting you normally get, but this time look at the URL in
+your browser. See how it's http://localhost:8080/hello even though you
+sent in parameters.
 
-app = web.application(urls, globals())
+The part of the hello_form.html file that makes this work is the line
+with <form action="/hello" method="POST">. This tells your browser to:
+    1. Collect data from the user using the form fields inside the
+    form.
+    2. Send them to the server using a POST type of request, which is
+    just another browser request that "hides" the form fields.
+    3. Send that to the /hello URL (as shown in the action="/hello"
+    part).
 
-render = web.template.render('templates/')
+You can then see how the two <input> tags match the names of the
+variables in your new code. Also notice that instead of just a GET
+method inside class index, I have another method, POST. How this
+new application works is:
+    1. The browser first hits the web application at /hello but it
+    sends a GET, so our index.GET function runs and returns the
+    hello_form.
+    2. You fill out the form in the browser, and the browser does
+    what the <form> says and sends the data as a POST.
+    3. The web application then runs the index.POST method rather
+    than the index.GET method to handle this request.
+    4. This index.POST method then does what it normally does to send
+    back the hello page like before. There is really nothing new in
+    here, it's just moved into a new function.
 
-class index(object):
-    def GET(self):
-        return render.hello_form()
-
-    def POST(self):
-        form = web.input(name="Nobody", greet="Hello")
-        greeting = "%s, %s" % (form.greet, form.name)
-        return render.index(greeting=greeting)
-
-if __name__=="__main__"
-    app.run()
-
-
-
-
-
-
-
-
-
+As an exercise, go into the templates/index.html file and add a link
+back to just /hello so that you can keep filling out the form and
+seeing the results. Make sure you can explain how this link works and
+it's letting you cycle between templates/index.html and templates/
+hello_form.html and what's being run inside this latest Python code.
 
 
+Creating a Layout Template
+
+When you work on your game in the next exercise, you'll need to make a
+bunch of little HTML pages. Writing a full web page each time will
+quickly become tedious. Luckily you can create a "layout" template, or
+a kind of shell that will wrap all your other pages with common headers
+and footers. Good programmers try to reduce repetition, so layouts are
+essential for being a good programmer.
+
+Change templates/index.html to be like this:
+#
+# $def with (greeting)
+#
+# $if greeting:
+#     I just wanted to say <em style="color: green; font-size: 2em;">$greeting</em>.
+# $else:
+#     <em>Hello</em>, world!
+#
+
+Then change templates/hello_form.html to be like this:
+#
+# <h1>Fill Out This Form</h1>
+#
+# <form action="/hello" method="POST">
+#     A Greeting: <input type="text" name="greet">
+#     <br/>
+#     Your Name: <input type="text" name="name">
+#     <br/>
+#     <input type="submit">
+# </form>
+#
+
+All we're doing is stripping out the "boilerplate" at the top and the
+bottom, which is always on every page. We'll put that back into a
+single templates/layout.html file that handles it for us from now on.
+
+Once you have those changes, create a templates/layout.html file with
+this in it:
+#
+# $def with (content)
+#
+# <html>
+# <head>
+#     <title>Gothons From Planet Percal #25</title>
+# </head>
+# <body>
+#
+# $:content
+#
+# </body>
+# </html>
+#
+
+This file looks like a regular template, except that it's going to be
+passed the contents of the other templates and used to wrap them.
+Anything you put in here doesn't need to be in other templates. You
+should also pay attention to how $:content is written, since it's a
+little different from the other template variables.
+
+The final step is to change the line that makes the render object to
+be this:
+# render = web.template.render('templates', base='layout')
+#
+
+That tells lpthw.web to use the templates/layout.html file as the base
+template for all the other templates. Restart your application and
+then try to change the layout in interesting ways but without changing
+the other templates.
 
 
+Writing Automated Tests for Forms
 
+It's easy to test a web application with your browser by just hitting
+refresh,
 
+#
+# from nose.tools import *
+# import re
+#
+# def assert_response(resp, contains=None, matches=None, headers=None, status="200"):
+#
+#     assert status in resp.status, "Expected response %r not in %r" % (status, resp.status)
+#
+#     if status == "200":
+#         assert resp.data, "Response data is empty."
+#
+#     if contains:
+#         assert contains in resp.data, "Response does not contain %r" % contains
+#
+#     if matches:
+#         reg = re.compile(matches)
+#         assert reg.matches(resp.data), "Response does not match %r" % matches
+#
+#     if headers:
+#         assert_equal(resp.headers, headers)
+#
 
 """
