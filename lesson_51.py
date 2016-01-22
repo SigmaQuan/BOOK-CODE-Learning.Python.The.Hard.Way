@@ -86,7 +86,19 @@ application:
         Your browser is connected using the address you gave. Now it
         needs to ask for the resource it wants (or you want) on the
         remotes server. If you gave /book/ at the end of the URL, then
-        you want the file ()
+        you want the file (resource) at /book/, and most servers will
+        use the real life /book/index.html but pretend it doesn't
+        exist. What the browser does to get this resource is send a
+        request to the server. I won't get into exactly how it does
+        this, but just understand that it has to send something to
+        query the server for the request. The interesting thing is
+        that these "resources" don't have to be files. For instance,
+        when the browser in your application asks for something, the
+        server is returning something your Python code generated.
+    Server
+        The server is the computer at the end of a browser's connection
+        that knows how to answer your browser's requests for files/
+        resources. Most web servers
 
 
 """
