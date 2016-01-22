@@ -359,8 +359,21 @@ the other templates.
 Writing Automated Tests for Forms
 
 It's easy to test a web application with your browser by just hitting
-refresh,
+refresh, but come on, we're programmers here. Why do some repetitive
+task when we can write some code to test our application? What you're
+going to do next is write a little test for your web application form
+based on what you learned in Exercise 47. If you don't remember it,
+read it again.
 
+*****
+You need to do a bit of setup to make Python let you load your
+bin/app.py file for testing. When we get to Exercise 52 you'll change
+this, but for now create an empty bin/__inti__.py file so Python thinks
+bin/ is a directory.
+
+I've also created a simple little function for lpthw.web that lets you
+assert things about your web application's response, aptly named
+assert_response. Create the file tests/tools.py with these contents:
 #
 # from nose.tools import *
 # import re
@@ -382,5 +395,34 @@ refresh,
 #     if headers:
 #         assert_equal(resp.headers, headers)
 #
+
+Once that's in place you can write your automated test for the last
+version of the bin/app.py file you created. Created a new file named
+tests/app_tests.py with this:
+#
+# from nose.tools import *
+# from bin.app import app
+# from tests.tools import assert_response
+#
+# def test_index():
+#     # check that we get a 404 on the / URL
+#     resp = app.request("/")
+#     assert_response(resp, status="404")
+#
+#     # test our first GET request to /hello
+#     resp = app.request("/hello")
+#     assert_response(resp)
+#
+#     # make sure default values work for the form
+#     resp = app.request("/hello", method="POST")
+#     assert_response(resp, contains="Nobody")
+#
+#     # test that we get expected values
+#     data = {'name': 'Zed', 'greet': 'Hola'}
+#     resp = app.request("/hello", method="POST", data=data)
+#     assert_response(resp, contains="Zed")
+
+Finally, use nosetests to run setup and test your web applicaiton:
+# $ nosetests
 
 """
