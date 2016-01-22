@@ -6,7 +6,7 @@ urls = (
 
 app = web.application(urls, globals())
 
-render = web.template.render('templates/', base="layout")
+render = web.template.render('/home/quan/Documents/Code/BOOK-CODE-Learning.Python.The.Hard.Way/ex51/templates/', base="layout")
 
 class index(object):
     def GET(self):

@@ -150,15 +150,100 @@ look like this:
 #     app.run()
 #
 
+Restart it (hit CTRL-C and then run it again) to make sure it loads
+again, then with your browser go to http://localhost:8080/hello which
+should display, "I just wanted to say Hello, Nobody". Next, change the
+URL in your browser to http://localhost:8080/hello?name=Frank and you
+will see it say, "Hello, Frank". Finally, change the name=Frank part to
+be your name. Now it's saying hello to you.
+
+Let's break down the changes I made to your script.
+    1. Instead of just a string for greeting I'm now using web.input to
+    get data from the browser. This function takes a key=value set of
+    default, parses the ?name=Frank part of the URL you give it, and
+    then returns a nice object for you to work with that represents
+    those values.
+    2. I then construct the greeting from the new form.name attribute
+    of the form object, which should be very familiar to you by now.
+    3. Everything else about the file is the same as before.
+
+You're also not restricted to just one parameter on the URL. Change
+this example to give two variables like this
+http://localhost:8080/hello?name=Frank&greet=Hola. Then change the
+code to get form.name and form.greet like this:
+greeting = "%s, %s" % (form.greet, form.name)
+
+After that, try the URL. Next, leave out he &greet=Hola part so that
+you can see the error you get. Since greet doesn't have a default value
+in web.input(name="Nobody") then it is a required field. Now go back
+and make it have a default in the web.input call to see how you fix
+this. Another thing you can do is set its default to greet=None so
+that you can check if it exists and then give a better error message,
+like this:
+#
+# form = web.input(name="Nobody", greet=None)
+#
+# if form.greet:
+#     greeting = "%s, %s" % (form.greet, form.name)
+# else:
+#     return "ERROR: greet s required."
+#
 
 
+Creating HTML Forms
 
+Passing the parameters on the URL works, but it's kind of ugly and not
+easy to use for regular people. What you really want is a "POST form",
+which is a special HTML file that has a <form> tag in it. This form
+will collect information from the user, then send it to your web
+application just like you did above.
 
+Let's make a quick one so you can see how it works. Here's the new HTML
+file you need to creat, in templates/hello_form.html:
+#
+# <html>
+#     <head>
+#         <title>Sample Web Form</title>
+#     </head>
+# <body>
+#
+# <h1>Fill Out This Form</h1>
+#
+# <form action="/hello" method="POST">
+#     A Greeting: <input type="text" name="greet">
+#     <br/>
+#     Your Name: <input type="text" name="name">
+#     <br/>
+#     <input type="submit">
+# </form>
+#
+# </body>
+# </html>
+#
 
+You should then change bin/app.py to look like this:
 
+import web
 
+urls =(
+    '/hello', 'index'
+)
 
+app = web.application(urls, globals())
 
+render = web.template.render('templates/')
+
+class index(object):
+    def GET(self):
+        return render.hello_form()
+
+    def POST(self):
+        form = web.input(name="Nobody", greet="Hello")
+        greeting = "%s, %s" % (form.greet, form.name)
+        return render.index(greeting=greeting)
+
+if __name__=="__main__"
+    app.run()
 
 
 
