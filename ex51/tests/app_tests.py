@@ -1,5 +1,5 @@
 from nose.tools import *
-from ex51.bin import app
+from ex51.bin.app import app
 from test.tools import assert_response
 
 def test_index():
