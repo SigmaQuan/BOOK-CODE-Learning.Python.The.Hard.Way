@@ -1,6 +1,6 @@
-from nose.tools import *
-from ex51.bin.app import *
-from test.tools import assert_response
+from ex51.bin.app import app
+from tests.tools import assert_response
+# from nose.tools import *
 
 def test_index():
     # check that we get a 404 on the / URL

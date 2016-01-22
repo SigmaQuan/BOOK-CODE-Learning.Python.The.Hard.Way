@@ -1,0 +1,77 @@
+ python项目包和文件的管理以及如何引用相对路径的包和模块
+
+目录 结构：
+
+core
+
+|____ __init__.py
+
+|____ basic
+
+          |____ __init__.py
+
+|____ database
+
+          |____ mysql
+
+                   |____ __init__.py
+
+                   |____ mysql_db.py
+
+|____ test
+
+          |____ __init__.py
+
+          |____ database_mysql_test.py
+
+|____ main.py
+
+
+
+__init__.py
+
+空的，如果没有这个文件，就无法从该文件夹中导入对应的模块。
+
+
+
+mysql_db.py:
+
+class MySqlDb:
+    def __init__(self):
+        self.name = "my sql db"
+
+
+
+database_mysql_test.py：
+复制代码
+
+from ..database.mysql.mysql_db import MySqlDb
+
+# test mysql db
+class MySqlDbTest:
+    def __init__(self):
+        db = MySqlDb()
+        self.result = "Module: " + db.name
+
+复制代码
+
+
+
+main.py：
+
+from core.test.database_mysql_test import MySqlDbTest
+
+case = MySqlDbTest()
+print(case.result)
+
+
+
+控制台下运行命令行:
+
+python main.py
+
+
+
+运行结果:
+
+Module: my sql db
