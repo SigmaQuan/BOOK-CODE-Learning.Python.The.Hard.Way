@@ -425,4 +425,60 @@ tests/app_tests.py with this:
 Finally, use nosetests to run setup and test your web applicaiton:
 # $ nosetests
 
+What I'm doing here is I'm actually importing the whole application
+from the bin/app.py module, then running it manually. The lpthw.web
+framework has a very simple API for processing requests, which looks
+like this:
+# app.request(localpart='/', method='GET', data=None, host='0.0.0.0:8080',
+#             headers=None, https=False)
+
+This means you can pass in the URL as the first parameter, then change
+the method of the request, as well as what form data you send,
+including the host and headers. This works without running an actually
+web server so you can do tests with automated tests and also use your
+browser to test a running server.
+
+To validate responses from this function, use the assert_response
+function from tests.tools which has:
+# assert_response(resp, contains=None, matches=None, headers=None, status="200")
+#
+
+Pass int the response you get from calling app.request, then add things
+you want checked. Use the contains parameter to make sure that response
+contains certain value. Use the status parameter to check for certain
+responses. There's actually quite a lot of information in this little
+function so it would be good for you to study it.
+
+In the tests/app_tests.py automated test I'm first making sure the /
+URL returns a "404 Not Found" response, since it actually doesn't
+exist. Then I'm checking that /hello works with both a GET and POST
+form. Following the test should be fairly simple, even if you might
+not totally know what's going on.
+
+Take some time studying this latest application, especially how the
+automated testing works. Make sure you understand how I imported the
+application from  bin/app.py and ran it directly for the automated
+test. This is an important trick that will lead to more learning.
+
+
+Study Drills
+    1. Read even more about HTML, and give the simple form a better
+    layout. It helps to draw what you want to do on paper and then
+    implement it with HTML.
+    2. This one is hard, but try to figure out how you'd do a file
+    upload form so that you can upload an image and save it to the
+    disk.
+    3. This is even more mind-numbing, but go find the HTTP RFC (which
+    is the document that describes how HTTP works) and read as much of
+    it as you can. It is really boring but comes in handy once in a
+    while.
+    4. This will also be really difficult, but see if you can find
+    someone to help you setup a web server like Apache, Nginx, or
+    thttpd. Try to serve a couple of your .html and .css files with it
+    just to see if you can. Don't worrry if you can't. WEb servers kind
+    of suck.
+    5. Take a break after this and just try making as many different
+    web applications as you can. You should definitely read about
+    sessions in web.py (which is the same as lpthw.web) so you can
+    understand how to keep state for a user.
 """
