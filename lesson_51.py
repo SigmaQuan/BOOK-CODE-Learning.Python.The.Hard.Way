@@ -98,7 +98,81 @@ application:
     Server
         The server is the computer at the end of a browser's connection
         that knows how to answer your browser's requests for files/
-        resources. Most web servers
+        resources. Most web servers just send files, and that's
+        actually building a server in Python that knows how to take
+        requests for resources, and then return strings that you craft
+        using Python. When you do this crafting, you are pretending to
+        be a file to the browser, but really it's just code. As you can
+        see from Exercise 50, it also doesn't take much code to create
+        a response.
+    Response
+        This is the HTML (CSS, JavaScript, or images) your server wants
+        to send back to the browser as the answer to the browser's
+        request. In the case of files, it just reads them off the disk
+        and sends them to the browser, but it wraps the contents of the
+        disk in a special "header" so the browser knows what it's
+        getting. In the case of your application, you're still sending
+        the same thing, including the header, but you generate that
+        data on the fly with your Python code.
+
+That is the fastest crash course in how a web browser accesses
+information on servers on the internet. It should work well enough for
+you to understand this exercise, but if not, read about it as much as
+you can until you get it. A really good way to do that is to take the
+diagram and break different parts of the web application you did in
+Exercise 50. If you can break your web application in predictable ways
+using the diagram, you'll start to understand how it works.
+
+
+How Forms Work
+
+The best way to play with forms is to write some code that accepts form
+data, and then see what you can do. Take your bin/app.py and make it
+look like this:
+#
+# import web
+#
+# urls = ('/hello', 'index')
+#
+# app = web.application(urls, globals())
+#
+# render = web.template.render('templates/')
+#
+# class index(object):
+#     def GET(self):
+#         form = web.input(name="Nobody")
+#         greeting = "Hello, " % form.name
+#
+#         return render.index(greeting=greeting)
+#
+#
+# if __name__ == "__main__":
+#     app.run()
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 """
