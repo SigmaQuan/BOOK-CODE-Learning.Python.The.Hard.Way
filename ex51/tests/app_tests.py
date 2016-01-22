@@ -1,6 +1,7 @@
+from nose.tools import *
 from ex51.bin.app import app
-from tests.tools import assert_response
-# from nose.tools import *
+# from tests.tools import assert_response
+from ex51.tests.tools import assert_response
 
 def test_index():
     # check that we get a 404 on the / URL
@@ -16,7 +17,6 @@ def test_index():
     assert_response(resp, contains="Nobody")
 
     # test that we get expected values
-    data = {'name':'Zed', 'greet':'Hola'}
+    data = {'name': 'Zed', 'greet': 'Hola'}
     resp = app.request("/hello", method="POST", data=data)
     assert_response(resp, contain="Zed")
-
