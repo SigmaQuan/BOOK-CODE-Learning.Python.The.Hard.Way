@@ -14,6 +14,7 @@ class foo(object):
         name = "Chen Rui"
         return render.foo(name=name)
 
+
 if __name__ == "__main__":
     urls = (
         '/', 'foo'
