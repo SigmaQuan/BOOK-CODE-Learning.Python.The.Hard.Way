@@ -261,7 +261,11 @@ the data you sent to page A just disappears.
 
 The solution to this is to create a little data store (usually in a
 database or on the disk) that uses a number unique to each browser to
-keep track of what that browser was doing. This is called ""
+keep track of what that browser was doing. This is called "session
+tracking" and uses Cookies in the browser to maintain the state of the
+user through the application. In the little lpthw.web framework it's
+fairly easy, and there's an example showing how it's done:
+
 
 
 
