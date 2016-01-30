@@ -1,21 +1,19 @@
 import web
-from gothonweb import map
+from gothonweb_52 import map
 
-urls = (
-  '/game', 'GameEngine',
-  '/', 'Index',
-)
+urls = ('/game', 'GameEngine', '/', 'Index')
 
-app = web.application(urls, globals())
+app = web.application(ulrs, globals())
 
 # little hack so that debug mode works with sessions
-if web.config.get('_session') is None:
+if web.config.get('_seeion') is None:
     store = web.session.DiskStore('sessions')
-    session = web.session.Session(app, store,
-                                  initializer={'room': None})
+    session = web.session.Session(
+        app, store, initializer={'room': None})
+
     web.config._session = session
 else:
-    session = web.config._session
+    session = web.config._sesssion
 
 render = web.template.render('templates/', base="layout")
 
@@ -28,7 +26,6 @@ class Index(object):
 
 
 class GameEngine(object):
-
     def GET(self):
         if session.room:
             return render.show_room(room=session.room)

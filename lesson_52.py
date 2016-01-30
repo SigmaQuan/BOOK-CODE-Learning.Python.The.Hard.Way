@@ -249,7 +249,7 @@ works really well and that your test is as complete as possible
 because we'll be changing this map later and you'll use the tests to
 make sure it keeps working.
 
-
+*****?????begin
 Sessions and Tracking Users
 
 At a certain point in your web application you'll need to keep track of
@@ -304,7 +304,185 @@ Take the time to understand this code so you can see how the session
 starts off with the count equal to 0. Also try looking at the files in
 sessions/ to see if you can open them up. Here's a Python session where
 I open up one and decode it:
+    # >>> import pickle
+    # >>> import base64
+    # >>> base64.b64decode(open("sessions/XXXXX").read())
+    # "(dp1\nS'count'\np2\nI1\nsS'ip'\np3\nV127.0.0.1\np4\nsS'session_id'\np5\nS'XXXX'\np6\ns."
+    # >>>
+    # >>> x = base64.b64decode(open("sessions/XXXXX").read())
+    # >>>
+    # >>> pickle.loads(x)
+    # {'count': 1, 'ip': u'127.0.0.1', 'session_id': 'XXXXX'}
+
+The sessions are really just dictionaries that get written do disk
+using pickle and base64 libraries. There are probably as many ways to
+store and manage sessions as there are web frameworks, so it's not too
+important to know how these work. It does help if you need ot debug the
+session or potentially clean it out.
+*****?????begin
 
 
+Creating an Engine
 
+You should have your game map working and a good unit test for it. I
+now want you to make a simple little game engine that will run the
+rooms, collect input from the player, and keep track of where a player
+is in the game. We'll be using the sessions you just learned to make
+a simple game engine that will:
+    1. Start a new game for new users.
+    2. Present the room to the user.
+    3. Take input from the user.
+    4. Run user input through the game.
+    5. Display the results and keep going until the user dies.
+
+To do this, you're going to take the trusty bin/app.py you've been
+hacking on and create a fully working, session-based game engine. The
+catch is I'm going to make a very simple one with basci HTML files,
+and it'll be up to you to complete it. Here is the base engine:
+#
+# import web
+# from gothonweb import map
+#
+# urls = ('/game', 'GameEngine', '/', 'Index')
+#
+# app = web.application(ulrs, globals())
+#
+# # little hack so that debug mode works with sessions
+# if web.config.get('_seeion') is None:
+#     store = web.session.DiskStore('sessions')
+#     session = web.session.Session(
+#         app, store, initializer={'room': None})
+#
+#     web.config._session = session
+# else:
+#     session = web.config._sesssion
+#
+# render = web.template.render('templates/', base="layout")
+#
+#
+# class Index(object):
+#     def GET(self):
+#         # this is used to "setup" the session with starting values
+#         session.room = map.START
+#         web.seeother("/game")
+#
+#
+# class GameEngine(object):
+#     def GET(self):
+#         if session.room:
+#             return render.show_room(room=session.room)
+#         else:
+#             # why is there here? do you need it?
+#             return render.you_died()
+#
+#     def POST(self):
+#         form = web.input(action=None)
+#
+#         # there is a bug here, can you fix it?
+#         if session.room and form.action:
+#             session.room = session.room.go(form.action)
+#
+#         web.seeother("/game")
+#
+# if __name__ == "__main__":
+#     app.run()
+
+There are even more new things in this script, but amazingly it's an
+entire web-based game engine in a small file. The biggest "hack" in the
+script are the lines that bring the sessions back, which is needed so
+that debug mode reloading works. Otherwise, each time you hit refresh
+the sessions will disappear and the game won't work.
+
+*****PYTHON ENVIRONMENT VARIABLE
+Before you run bin/app.py you need to change you PYTHONPATH environment
+variable. Don't know what that is? I know, it's kind of dumb, but you
+have to learn what this is to run even basic Python programs, but that
+is how Python people like things.
+
+In you Terminal, type:
+export PYTHONPATH=$PYTHONPATH:.
+On Windows PowerShell do:
+$env:PYTHONPATH = "$env: PYTHONPATH;."
+
+You should only have to do it once per shell session, but if you get
+an ipmort error, then you probably need to do this or you did it
+wrong.
+
+You should next delete templates/hello_form.html and
+templates/index.html and create the two templates mentioned in the
+above code. Here's a very simple templates/show_room.html:
+#
+# $def with (room)
+#
+# <h1> $room.name </h1>
+#
+# <pre>
+#     $room.description
+# </pre>
+#
+# $if room.name == "death":
+#     <p><a href="/">Play Again?</a></p>
+# $else:
+#     <p>
+#         <form action="/game" method="POST">
+#             - <input type="text" name="action"> input type="SUBMIT">
+#         </form>
+#     </p>
+#
+
+That is the template to show a room as you travel through the game.
+Next you need one to tell someone they died in the case that they got
+to the end of the map on accident, which is templates/you_died.html:
+#
+# <h1>You Died!</h1>
+#
+# <p>Looks like you bit the dust.</p>
+# <p><a href="/">Play Again</a></p>
+#
+
+With those in place, you should now be able to do the following:
+    1. Get the test tests/app_tests.py working again so that you are
+    testing the game. You won't be able to do much more than a few
+    clicks in the game because of sessions, but you should be able
+    to do some basics.
+    2. Remove the sessions/* files and make sure you've started over.
+    3. Run the python bin/app.py script and test out the game.
+
+You should be able to refresh and fix the game like normal, and work
+with the game HTML and engine until it does all the things you want it
+to do.
+
+
+Your Final Exam
+
+Do you feel like this was a huge amount of information thrown at you
+all at once? Good, I want you to have something to tinker with while
+you build your skills. To complete this exercise, I'm going to give
+you a final test set of exercises for you to complete on your own.
+You'll notice that what you've written so far isn't very well built;
+it is just a first version of the code. Your task now is to make the
+game more complete by doing these thing:
+    1. Fix all the bugs I mention in the code, and any that I didn't
+    mention. If you find new bugs, let me know.
+    2. Improve all of the automated tests so that you test more of the
+    application and get to a point where you use a test rather than
+    your browser to check the application while you work.
+    3. Make the HTML look better.
+    4. Research logins and create a signup system for the application,
+    so people can have logins and high scores.
+    5. Complete the game map, making it as large and feature complete
+    as possible.
+    6. Give people a "help" system that lets them ask what they can do
+    at each room in the game.
+    7. Add any other features you can think of to the game.
+    8. Create several "maps" and let people choose a game they want to
+    run. Your bin/app.py engine should be able to run any map of rooms
+    you give it, so you can support multiple games.
+    9. Finally, use what you learned in Exercise 48 and 49 to create a
+    better input processor. You have most of the code necessary; you
+    just need to improve the grammar and hook it up to your input form
+    and the GameEngine.
+
+
+Good luck!
 """
