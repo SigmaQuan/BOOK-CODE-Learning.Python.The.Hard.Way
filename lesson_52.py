@@ -294,7 +294,16 @@ fairly easy, and there's an example showing how it's done:
 
 To make this work, you need to create a sessions/ directory there the
 application can put session storage. Do that, run this application, and
-go to /count .
+go to /count . Hit refresh and watch is what we want for the game.
+there is a way to make the browser remember forever, but that makes
+testing and development harder. If you then go to /reset and back to
+/count you can see your counter reset because you've killed the
+session.
+
+Take the time to understand this code so you can see how the session
+starts off with the count equal to 0. Also try looking at the files in
+sessions/ to see if you can open them up. Here's a Python session where
+I open up one and decode it:
 
 
 
