@@ -265,7 +265,36 @@ keep track of what that browser was doing. This is called "session
 tracking" and uses Cookies in the browser to maintain the state of the
 user through the application. In the little lpthw.web framework it's
 fairly easy, and there's an example showing how it's done:
+#
+# import web
+#
+# web.config.debug = False
+#
+# urls = (
+#     "/count", "count",
+#     "/reset", "reset"
+# )
+# app = web.application(urls, locals())
+# store = web.session.DiskStore('sessions')
+# session = web.session.Session(app, store, initializer={'count': 0})
+#
+# class count:
+#     def GET(self):
+#         session.count += 1
+#         return str(session.count)
+#
+# class reset:
+#     def GET(self):
+#         session.kill()
+#         return ""
+#
+# if __name__ == "__main__":
+#     app.run()
+#
 
+To make this work, you need to create a sessions/ directory there the
+application can put session storage. Do that, run this application, and
+go to /count .
 
 
 
